@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://upravVylepsenie" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://entities.services.bug.dipl.seregely.tuke.sk/" name="UpravVylepsenieProcess" targetNamespace="http://upravVylepsenie">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="VylepseniePLT">
+    <plnk:role name="asd" portType="wsdl:VylepsenieService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="RiesitelPLT">
+    <plnk:role name="qwe" portType="wsdl:RiesitelService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="StavPLT">
+    <plnk:role name="zx" portType="wsdl:CiselnikStavovService"/>
+  </plnk:partnerLinkType>
+    <import location="vylepsenie.wsdl" namespace="http://entities.services.bug.dipl.seregely.tuke.sk/"/>
+    <import location="riesitel.wsdl" namespace="http://entities.services.bug.dipl.seregely.tuke.sk/"/>
+    <import location="ciselnikStavov.wsdl" namespace="http://entities.services.bug.dipl.seregely.tuke.sk/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://upravVylepsenie">
+
+            <element name="UpravVylepsenieProcessRequest">
+                <complexType>
+                    <sequence>
+                        <element name="idVylepsenia" type="int"/>
+                        <element name="idRiesitela" type="int"/>
+                        <element name="idStavu" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="UpravVylepsenieProcessResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="UpravVylepsenieProcessRequestMessage">
+        <part element="tns:UpravVylepsenieProcessRequest" name="payload"/>
+    </message>
+    <message name="UpravVylepsenieProcessResponseMessage">
+        <part element="tns:UpravVylepsenieProcessResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the UpravVylepsenieProcess BPEL process -->
+    <portType name="UpravVylepsenieProcess">
+        <operation name="process">
+            <input message="tns:UpravVylepsenieProcessRequestMessage"/>
+            <output message="tns:UpravVylepsenieProcessResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="UpravVylepsenieProcess">
+        <plnk:role name="UpravVylepsenieProcessProvider" portType="tns:UpravVylepsenieProcess"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="UpravVylepsenieProcessBinding" type="tns:UpravVylepsenieProcess">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://upravVylepsenie/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="UpravVylepsenieProcessService">
+    	<port binding="tns:UpravVylepsenieProcessBinding" name="UpravVylepsenieProcessPort">
+    		<soap:address location="http://localhost:8080/UpravVylepsenieProcess"/>
+    	</port>
+    </service>
+</definitions>

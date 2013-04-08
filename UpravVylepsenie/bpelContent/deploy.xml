@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:entities.services.bug.dipl.seregely.tuke.sk="http://entities.services.bug.dipl.seregely.tuke.sk/" xmlns:upravVylepsenie="http://upravVylepsenie">
+  <process name="upravVylepsenie:UpravVylepsenieProcess">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="upravVylepsenie:UpravVylepsenieProcessService" port="UpravVylepsenieProcessPort"/>
+    </provide>
+    <invoke partnerLink="VylepseniePL">
+      <service name="entities.services.bug.dipl.seregely.tuke.sk:VylepsenieServiceService" port="VylepsenieServicePort"/>
+    </invoke>
+    <invoke partnerLink="RiesitelPL">
+      <service name="entities.services.bug.dipl.seregely.tuke.sk:RiesitelServiceService" port="RiesitelServicePort"/>
+    </invoke>
+    <invoke partnerLink="StavPL">
+      <service name="entities.services.bug.dipl.seregely.tuke.sk:CiselnikStavovServiceService" port="CiselnikStavovServicePort"/>
+    </invoke>
+  </process>
+</deploy>
