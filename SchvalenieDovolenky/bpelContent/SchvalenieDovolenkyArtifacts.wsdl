@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schvalenie" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://entities.services.att.dipl.seregely.tuke.sk/" xmlns:wsdl1="http://services.util.dipl.seregely.tuke.sk/" name="SchvalenieDovolenky" targetNamespace="http://schvalenie">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="DovolenkaPLT">
+    <plnk:role name="asd" portType="wsdl:DovolenkaService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="EmailSenderPLT">
+    <plnk:role name="zxc" portType="wsdl1:EmailSender"/>
+  </plnk:partnerLinkType>
+    <import location="dovolenka.wsdl" namespace="http://entities.services.att.dipl.seregely.tuke.sk/"/>
+    <import location="email.wsdl" namespace="http://services.util.dipl.seregely.tuke.sk/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schvalenie">
+
+            <element name="SchvalenieDovolenkyRequest">
+                <complexType>
+                    <sequence>
+                        <element name="idDovolenky" type="int"/>
+                        <element name="schvalenie" type="int"/>
+                        <element name="predmet" type="string"/>
+                        <element name="sprava" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="SchvalenieDovolenkyResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="SchvalenieDovolenkyRequestMessage">
+        <part element="tns:SchvalenieDovolenkyRequest" name="payload"/>
+    </message>
+    <message name="SchvalenieDovolenkyResponseMessage">
+        <part element="tns:SchvalenieDovolenkyResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the SchvalenieDovolenky BPEL process -->
+    <portType name="SchvalenieDovolenky">
+        <operation name="process">
+            <input message="tns:SchvalenieDovolenkyRequestMessage"/>
+            <output message="tns:SchvalenieDovolenkyResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="SchvalenieDovolenky">
+        <plnk:role name="SchvalenieDovolenkyProvider" portType="tns:SchvalenieDovolenky"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="SchvalenieDovolenkyBinding" type="tns:SchvalenieDovolenky">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://schvalenie/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="SchvalenieDovolenkyService">
+    	<port binding="tns:SchvalenieDovolenkyBinding" name="SchvalenieDovolenkyPort">
+    		<soap:address location="http://localhost:8080/SchvalenieDovolenky"/>
+    	</port>
+    </service>
+</definitions>
