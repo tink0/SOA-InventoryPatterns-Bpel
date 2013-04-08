@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:entities.services.bug.dipl.seregely.tuke.sk="http://entities.services.bug.dipl.seregely.tuke.sk/" xmlns:upravChybu="http://upravChybu">
+  <process name="upravChybu:UpravChybuProcess">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="client">
+      <service name="upravChybu:UpravChybuProcessService" port="UpravChybuProcessPort"/>
+    </provide>
+    <invoke partnerLink="ChybaPL">
+      <service name="entities.services.bug.dipl.seregely.tuke.sk:ChybaServiceService" port="ChybaServicePort"/>
+    </invoke>
+    <invoke partnerLink="Riesitel">
+      <service name="entities.services.bug.dipl.seregely.tuke.sk:RiesitelServiceService" port="RiesitelServicePort"/>
+    </invoke>
+  </process>
+</deploy>
