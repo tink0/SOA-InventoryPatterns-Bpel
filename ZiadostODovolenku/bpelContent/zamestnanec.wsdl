@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="ZamestnanecServiceService" targetNamespace="http://entities.services.att.dipl.seregely.tuke.sk/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://entities.services.att.dipl.seregely.tuke.sk/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://entities.services.att.dipl.seregely.tuke.sk/" version="1.0" xmlns:tns="http://entities.services.att.dipl.seregely.tuke.sk/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="create" type="tns:create" />
+<xs:element name="createResponse" type="tns:createResponse" />
+<xs:element name="delete" type="tns:delete" />
+<xs:element name="deleteResponse" type="tns:deleteResponse" />
+<xs:element name="retrieve" type="tns:retrieve" />
+<xs:element name="retrieveResponse" type="tns:retrieveResponse" />
+<xs:element name="update" type="tns:update" />
+<xs:element name="updateResponse" type="tns:updateResponse" />
+<xs:complexType name="update">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="tns:zamestnanec" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="zamestnanec">
+<xs:sequence>
+<xs:element minOccurs="0" name="celeMeno" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="dovolenkas" nillable="true" type="xs:anyType" />
+<xs:element name="idZamestnanca" type="xs:int" />
+<xs:element minOccurs="0" name="oddelenie" type="tns:oddelenie" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="praceneschopnosts" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="pritomnostVPracis" nillable="true" type="xs:anyType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="oddelenie">
+<xs:sequence>
+<xs:element name="idOddelenia" type="xs:int" />
+<xs:element minOccurs="0" name="nazov" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="personalistas" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="veduciOddelenias" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="zamestnanecs" nillable="true" type="xs:anyType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:zamestnanec" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="delete">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deleteResponse">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="retrieve">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="retrieveResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:zamestnanec" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="create">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:string" />
+<xs:element minOccurs="0" name="arg1" type="tns:oddelenie" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:zamestnanec" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="create">
+    <wsdl:part element="tns:create" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveResponse">
+    <wsdl:part element="tns:retrieveResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createResponse">
+    <wsdl:part element="tns:createResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="delete">
+    <wsdl:part element="tns:delete" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieve">
+    <wsdl:part element="tns:retrieve" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part element="tns:updateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteResponse">
+    <wsdl:part element="tns:deleteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="update">
+    <wsdl:part element="tns:update" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ZamestnanecService">
+    <wsdl:operation name="update">
+      <wsdl:input message="tns:update" name="update">
+    </wsdl:input>
+      <wsdl:output message="tns:updateResponse" name="updateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <wsdl:input message="tns:delete" name="delete">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteResponse" name="deleteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieve">
+      <wsdl:input message="tns:retrieve" name="retrieve">
+    </wsdl:input>
+      <wsdl:output message="tns:retrieveResponse" name="retrieveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <wsdl:input message="tns:create" name="create">
+    </wsdl:input>
+      <wsdl:output message="tns:createResponse" name="createResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZamestnanecServiceServiceSoapBinding" type="tns:ZamestnanecService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="update">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="update">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="delete">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="deleteResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieve">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="retrieve">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="retrieveResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="create">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="createResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZamestnanecServiceService">
+    <wsdl:port binding="tns:ZamestnanecServiceServiceSoapBinding" name="ZamestnanecServicePort">
+      <soap:address location="http://localhost:8080/AttendanceTracking/Zamestnanec" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
