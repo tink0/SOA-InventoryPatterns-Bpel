@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="EmailSenderService" targetNamespace="http://services.util.dipl.seregely.tuke.sk/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://services.util.dipl.seregely.tuke.sk/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://services.util.dipl.seregely.tuke.sk/" version="1.0" xmlns:tns="http://services.util.dipl.seregely.tuke.sk/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="send" type="tns:send" />
+<xs:element name="sendConfirm" type="tns:sendConfirm" />
+<xs:element name="sendConfirmResponse" type="tns:sendConfirmResponse" />
+<xs:element name="sendResponse" type="tns:sendResponse" />
+<xs:complexType name="sendConfirm">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sendConfirmResponse">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="send">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:string" />
+<xs:element minOccurs="0" name="arg1" type="xs:string" />
+<xs:element minOccurs="0" name="arg2" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sendResponse">
+<xs:sequence />
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="send">
+    <wsdl:part element="tns:send" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendResponse">
+    <wsdl:part element="tns:sendResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendConfirm">
+    <wsdl:part element="tns:sendConfirm" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sendConfirmResponse">
+    <wsdl:part element="tns:sendConfirmResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EmailSender">
+    <wsdl:operation name="sendConfirm">
+      <wsdl:input message="tns:sendConfirm" name="sendConfirm">
+    </wsdl:input>
+      <wsdl:output message="tns:sendConfirmResponse" name="sendConfirmResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="send">
+      <wsdl:input message="tns:send" name="send">
+    </wsdl:input>
+      <wsdl:output message="tns:sendResponse" name="sendResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EmailSenderServiceSoapBinding" type="tns:EmailSender">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="sendConfirm">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="sendConfirm">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sendConfirmResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="send">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="send">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="sendResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmailSenderService">
+    <wsdl:port binding="tns:EmailSenderServiceSoapBinding" name="EmailSenderPort">
+      <soap:address location="http://localhost:8080/Utilities/EmailSender" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

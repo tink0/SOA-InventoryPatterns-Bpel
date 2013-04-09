@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://schvalJazdu" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://entities.services.dipl.seregely.tuke.sk/" xmlns:wsdl1="http://services.util.dipl.seregely.tuke.sk/" name="SchvalJazduProcess" targetNamespace="http://schvalJazdu">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="StavJazdyPLT">
+    <plnk:role name="qwe" portType="wsdl:StavJazdyService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="VeduciPLT">
+    <plnk:role name="asd" portType="wsdl:VeduciService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="VodicPLT">
+    <plnk:role name="zxc" portType="wsdl:VodicService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="JazdaPLT">
+    <plnk:role name="poi" portType="wsdl:JazdaService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="EmailPLT">
+    <plnk:role name="mnb" portType="wsdl1:EmailSender"/>
+  </plnk:partnerLinkType>
+    <import location="stavJazdy.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="veduci.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="vodic.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="jazda.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="email.wsdl" namespace="http://services.util.dipl.seregely.tuke.sk/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://schvalJazdu">
+
+            <element name="SchvalJazduProcessRequest">
+                <complexType>
+                    <sequence>
+                    	<element name="schval" type="int"/>
+                        <element name="idVodica" type="int"/>
+                        <element name="idVeduceho" type="int"/>
+                        <element name="idStavu" type="int"/>
+                        <element name="textSVyhradami" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="SchvalJazduProcessResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="SchvalJazduProcessRequestMessage">
+        <part element="tns:SchvalJazduProcessRequest" name="payload"/>
+    </message>
+    <message name="SchvalJazduProcessResponseMessage">
+        <part element="tns:SchvalJazduProcessResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the SchvalJazduProcess BPEL process -->
+    <portType name="SchvalJazduProcess">
+        <operation name="process">
+            <input message="tns:SchvalJazduProcessRequestMessage"/>
+            <output message="tns:SchvalJazduProcessResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="SchvalJazduProcess">
+        <plnk:role name="SchvalJazduProcessProvider" portType="tns:SchvalJazduProcess"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="SchvalJazduProcessBinding" type="tns:SchvalJazduProcess">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://schvalJazdu/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="SchvalJazduProcessService">
+    	<port binding="tns:SchvalJazduProcessBinding" name="SchvalJazduProcessPort">
+    		<soap:address location="http://localhost:8080/SchvalJazduProcess"/>
+    	</port>
+    </service>
+</definitions>
