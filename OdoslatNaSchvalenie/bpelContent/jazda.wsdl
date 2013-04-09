@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="JazdaServiceService" targetNamespace="http://entities.services.dipl.seregely.tuke.sk/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://entities.services.dipl.seregely.tuke.sk/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema elementFormDefault="unqualified" targetNamespace="http://entities.services.dipl.seregely.tuke.sk/" version="1.0" xmlns:tns="http://entities.services.dipl.seregely.tuke.sk/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:element name="checkNull" type="tns:checkNull" />
+<xs:element name="checkNullResponse" type="tns:checkNullResponse" />
+<xs:element name="create" type="tns:create" />
+<xs:element name="createResponse" type="tns:createResponse" />
+<xs:element name="delete" type="tns:delete" />
+<xs:element name="deleteResponse" type="tns:deleteResponse" />
+<xs:element name="getListInInterval" type="tns:getListInInterval" />
+<xs:element name="getListInIntervalResponse" type="tns:getListInIntervalResponse" />
+<xs:element name="getSum" type="tns:getSum" />
+<xs:element name="getSumResponse" type="tns:getSumResponse" />
+<xs:element name="retrieve" type="tns:retrieve" />
+<xs:element name="retrieveResponse" type="tns:retrieveResponse" />
+<xs:element name="update" type="tns:update" />
+<xs:element name="updateResponse" type="tns:updateResponse" />
+<xs:complexType name="update">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="tns:jazda" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="jazda">
+<xs:sequence>
+<xs:element minOccurs="0" name="dlzkaJazdy" type="xs:decimal" />
+<xs:element name="idJazdy" type="xs:int" />
+<xs:element minOccurs="0" name="koniec" type="xs:dateTime" />
+<xs:element minOccurs="0" name="miestoKoniec" type="xs:string" />
+<xs:element minOccurs="0" name="miestoStart" type="xs:string" />
+<xs:element minOccurs="0" name="ocakavanaSpotreba" type="xs:decimal" />
+<xs:element minOccurs="0" name="start" type="xs:dateTime" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="stavJazdies" nillable="true" type="xs:anyType" />
+<xs:element minOccurs="0" name="sukromna" type="xs:boolean" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="suradnicas" nillable="true" type="xs:anyType" />
+<xs:element minOccurs="0" name="vodic" type="tns:vodic" />
+<xs:element minOccurs="0" name="vozidlo" type="tns:vozidlo" />
+<xs:element minOccurs="0" name="zakazka" type="tns:zakazka" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="vodic">
+<xs:sequence>
+<xs:element minOccurs="0" name="celeMeno" type="xs:string" />
+<xs:element name="cisloVodica" type="xs:int" />
+<xs:element minOccurs="0" name="email" type="xs:string" />
+<xs:element minOccurs="0" name="pracovisko" type="tns:pracovisko" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="stavJazdies" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="vozidloVodics" nillable="true" type="xs:anyType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="pracovisko">
+<xs:sequence>
+<xs:element name="idPracoviska" type="xs:int" />
+<xs:element minOccurs="0" name="nazov" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="uctovniks" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="veducis" nillable="true" type="xs:anyType" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="vodics" nillable="true" type="xs:anyType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="vozidlo">
+<xs:sequence>
+<xs:element name="idVozidla" type="xs:int" />
+<xs:element minOccurs="0" name="skutocnyStavPaliva" type="xs:float" />
+<xs:element minOccurs="0" name="spz" type="xs:string" />
+<xs:element minOccurs="0" name="tachometer" type="xs:float" />
+<xs:element minOccurs="0" name="typVozidla" type="xs:string" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="vozidloVodics" nillable="true" type="xs:anyType" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="zakazka">
+<xs:sequence>
+<xs:element name="idZakazky" type="xs:int" />
+<xs:element minOccurs="0" name="kod" type="xs:string" />
+<xs:element minOccurs="0" name="nazov" type="xs:string" />
+<xs:element minOccurs="0" name="popis" type="xs:string" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:jazda" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListInInterval">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+<xs:element minOccurs="0" name="arg1" type="xs:dateTime" />
+<xs:element minOccurs="0" name="arg2" type="xs:dateTime" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListInIntervalResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:jazda" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="delete">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deleteResponse">
+<xs:sequence />
+</xs:complexType>
+<xs:complexType name="checkNull">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:decimal" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="checkNullResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="xs:decimal" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="retrieve">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="retrieveResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:jazda" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSum">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" />
+<xs:element minOccurs="0" name="arg1" type="xs:dateTime" />
+<xs:element minOccurs="0" name="arg2" type="xs:dateTime" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getSumResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:sumarJazd" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="sumarJazd">
+<xs:sequence>
+<xs:element minOccurs="0" name="obdobieOd" type="xs:dateTime" />
+<xs:element minOccurs="0" name="obdovieDo" type="xs:dateTime" />
+<xs:element minOccurs="0" name="spotreba" type="xs:decimal" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="vodici" nillable="true" type="tns:vodic" />
+<xs:element minOccurs="0" name="vzdialenost" type="xs:decimal" />
+<xs:element maxOccurs="unbounded" minOccurs="0" name="zakazky" nillable="true" type="tns:zakazka" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="create">
+<xs:sequence>
+<xs:element minOccurs="0" name="arg0" type="xs:decimal" />
+<xs:element minOccurs="0" name="arg1" type="xs:dateTime" />
+<xs:element minOccurs="0" name="arg2" type="xs:string" />
+<xs:element minOccurs="0" name="arg3" type="xs:string" />
+<xs:element minOccurs="0" name="arg4" type="xs:decimal" />
+<xs:element minOccurs="0" name="arg5" type="xs:dateTime" />
+<xs:element name="arg6" type="xs:boolean" />
+<xs:element minOccurs="0" name="arg7" type="tns:vozidlo" />
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="tns:jazda" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getSum">
+    <wsdl:part element="tns:getSum" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createResponse">
+    <wsdl:part element="tns:createResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="delete">
+    <wsdl:part element="tns:delete" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListInInterval">
+    <wsdl:part element="tns:getListInInterval" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateResponse">
+    <wsdl:part element="tns:updateResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieve">
+    <wsdl:part element="tns:retrieve" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteResponse">
+    <wsdl:part element="tns:deleteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="create">
+    <wsdl:part element="tns:create" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="retrieveResponse">
+    <wsdl:part element="tns:retrieveResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkNullResponse">
+    <wsdl:part element="tns:checkNullResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSumResponse">
+    <wsdl:part element="tns:getSumResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="update">
+    <wsdl:part element="tns:update" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListInIntervalResponse">
+    <wsdl:part element="tns:getListInIntervalResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkNull">
+    <wsdl:part element="tns:checkNull" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="JazdaService">
+    <wsdl:operation name="update">
+      <wsdl:input message="tns:update" name="update">
+    </wsdl:input>
+      <wsdl:output message="tns:updateResponse" name="updateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListInInterval">
+      <wsdl:input message="tns:getListInInterval" name="getListInInterval">
+    </wsdl:input>
+      <wsdl:output message="tns:getListInIntervalResponse" name="getListInIntervalResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <wsdl:input message="tns:delete" name="delete">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteResponse" name="deleteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkNull">
+      <wsdl:input message="tns:checkNull" name="checkNull">
+    </wsdl:input>
+      <wsdl:output message="tns:checkNullResponse" name="checkNullResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieve">
+      <wsdl:input message="tns:retrieve" name="retrieve">
+    </wsdl:input>
+      <wsdl:output message="tns:retrieveResponse" name="retrieveResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSum">
+      <wsdl:input message="tns:getSum" name="getSum">
+    </wsdl:input>
+      <wsdl:output message="tns:getSumResponse" name="getSumResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <wsdl:input message="tns:create" name="create">
+    </wsdl:input>
+      <wsdl:output message="tns:createResponse" name="createResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="JazdaServiceServiceSoapBinding" type="tns:JazdaService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="update">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="update">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="updateResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delete">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="delete">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="deleteResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListInInterval">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getListInInterval">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getListInIntervalResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkNull">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="checkNull">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="checkNullResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="retrieve">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="retrieve">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="retrieveResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSum">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getSum">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getSumResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="create">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="create">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="createResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="JazdaServiceService">
+    <wsdl:port binding="tns:JazdaServiceServiceSoapBinding" name="JazdaServicePort">
+      <soap:address location="http://localhost:8080/GpsMonitoring/JazdaService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
