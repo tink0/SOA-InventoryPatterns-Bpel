@@ -22,7 +22,7 @@
   </extensions>
   <extensions>
     <extendedObject href="SchvalJazduProcess.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1365524125160"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1365581394291"/>
   </extensions>
   <extensions>
     <extendedObject href="SchvalJazduProcess.bpel#//@activity/@activities.3/@activity/@activities.1"/>
@@ -198,6 +198,10 @@
   </extensions>
   <extensions>
     <extendedObject href="SchvalJazduProcess.bpel#//@activity/@activities.3/@activity/@activities.0/@copy.0"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="SchvalJazduProcess.bpel#//@activity/@activities.3/@activity/@activities.4/@copy.4"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
 </extensionmodel:ExtensionMap>

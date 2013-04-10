@@ -97,7 +97,7 @@
                 </bpel:to>
             </bpel:copy>
         </bpel:assign>
-        <bpel:invoke name="Invoke2" partnerLink="VodicPL" operation="retrieve" portType="ns:VodicService" inputVariable="VodicPLRequest" outputVariable="VodicPLResponse"></bpel:invoke>
+        <bpel:invoke name="ZistiVodica" partnerLink="VodicPL" operation="retrieve" portType="ns:VodicService" inputVariable="VodicPLRequest" outputVariable="VodicPLResponse"></bpel:invoke>
         <bpel:if name="If">
             <bpel:condition><![CDATA[$input.payload/tns:schval=1]]></bpel:condition>
             <bpel:sequence>
@@ -121,7 +121,7 @@
                         </bpel:to>
                     </bpel:copy>
                 </bpel:assign>
-                <bpel:invoke name="Invoke" partnerLink="StavJazdyPL" operation="retrieve" portType="ns:StavJazdyService" inputVariable="StavJazdyPLRequest1" outputVariable="StavJazdyPLResponse1"></bpel:invoke>
+                <bpel:invoke name="ZiskajStavJazdy" partnerLink="StavJazdyPL" operation="retrieve" portType="ns:StavJazdyService" inputVariable="StavJazdyPLRequest1" outputVariable="StavJazdyPLResponse1"></bpel:invoke>
                 <bpel:assign validate="no" name="Assign1">
                     <bpel:copy>
                         <bpel:from><bpel:literal><tns:retrieve xmlns:tns="http://entities.services.dipl.seregely.tuke.sk/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -139,7 +139,7 @@
                         </bpel:to>
                     </bpel:copy>
                 </bpel:assign>
-                <bpel:invoke name="Invoke1" partnerLink="VeduciPL" operation="retrieve" portType="ns:VeduciService" inputVariable="VeduciPLRequest" outputVariable="VeduciPLResponse"></bpel:invoke>
+                <bpel:invoke name="ZiskajVeduceho" partnerLink="VeduciPL" operation="retrieve" portType="ns:VeduciService" inputVariable="VeduciPLRequest" outputVariable="VeduciPLResponse"></bpel:invoke>
                 <bpel:assign validate="no" name="Assign2">
                     
                     
@@ -306,10 +306,18 @@
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg2]]></bpel:query>
                         </bpel:to>
                     </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from>
+                            <bpel:literal xml:space="preserve">1</bpel:literal>
+                        </bpel:from>
+                        <bpel:to part="parameters" variable="StavJazdyPLRequest">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg0/ciselnikStavov/idStavu]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
                 </bpel:assign>
                 
                 
-                <bpel:invoke name="Invoke3" partnerLink="StavJazdyPL" operation="updateWithVeduciVodic" portType="ns:StavJazdyService" inputVariable="StavJazdyPLRequest" outputVariable="StavJazdyPLResponse"></bpel:invoke>
+                <bpel:invoke name="UpdateStavuJazdy" partnerLink="StavJazdyPL" operation="updateWithVeduciVodic" portType="ns:StavJazdyService" inputVariable="StavJazdyPLRequest" outputVariable="StavJazdyPLResponse"></bpel:invoke>
                 <bpel:assign validate="no" name="Assign4">
                     
                     
@@ -362,14 +370,16 @@
                         </bpel:copy>
                         <bpel:copy>
                             <bpel:from part="parameters" variable="VodicPLResponse">
-                                <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[return/email]]></bpel:query>
+                                <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                    <![CDATA[return/email]]>
+                                </bpel:query>
                             </bpel:from>
                             <bpel:to part="parameters" variable="EmailPLRequest">
                                 <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[arg0]]></bpel:query>
                             </bpel:to>
                         </bpel:copy>
                     </bpel:assign>
-                    <bpel:invoke name="Invoke4" partnerLink="EmailPL" operation="send" portType="ns0:EmailSender" inputVariable="EmailPLRequest" outputVariable="EmailPLResponse"></bpel:invoke>
+                    <bpel:invoke name="OdosliMailSVyhradami" partnerLink="EmailPL" operation="send" portType="ns0:EmailSender" inputVariable="EmailPLRequest" outputVariable="EmailPLResponse"></bpel:invoke>
                     <bpel:assign validate="no" name="Assign7">
                         <bpel:copy>
                             <bpel:from><bpel:literal><tns:SchvalJazduProcessResponse xmlns:tns="http://schvalJazdu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
