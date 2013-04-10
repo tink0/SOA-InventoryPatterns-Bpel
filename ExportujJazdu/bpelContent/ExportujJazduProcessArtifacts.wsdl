@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://exportJazdy" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://entities.services.dipl.seregely.tuke.sk/" xmlns:wsdl1="http://services.util.dipl.seregely.tuke.sk/" name="ExportujJazduProcess" targetNamespace="http://exportJazdy">
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     TYPE DEFINITION - List of types participating in this BPEL process 
+     The BPEL Designer will generate default request and response types
+     but you can define or import any XML Schema type and use them as part 
+     of the message types.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="StavJazdyPLT">
+    <plnk:role name="asd" portType="wsdl:StavJazdyService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="UctovnikPLT">
+    <plnk:role name="qwe" portType="wsdl:UctovnikService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="VeduciPLT">
+    <plnk:role name="zcx" portType="wsdl:VeduciService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="EmailPLT">
+    <plnk:role name="rty" portType="wsdl1:EmailSender"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="gpsExportPLT">
+    <plnk:role name="lkj" portType="wsdl1:GpsExportService"/>
+  </plnk:partnerLinkType>
+    <import location="stavJazdy.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="uctovnik.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="veduci.wsdl" namespace="http://entities.services.dipl.seregely.tuke.sk/"/>
+    <import location="email.wsdl" namespace="http://services.util.dipl.seregely.tuke.sk/"/>
+    <import location="GpsExport.wsdl" namespace="http://services.util.dipl.seregely.tuke.sk/"/>
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://exportJazdy">
+
+            <element name="ExportujJazduProcessRequest">
+                <complexType>
+                    <sequence>
+                        <element name="exportuj" type="int"/>
+                        <element name="idStavu" type="int"/>
+                        <element name="idUctovnika" type="int"/>
+                        <element name="textSVyhradami" type="string"/>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="ExportujJazduProcessResponse">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="int"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </types>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     MESSAGE TYPE DEFINITION - Definition of the message types used as 
+     part of the port type defintions
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <message name="ExportujJazduProcessRequestMessage">
+        <part element="tns:ExportujJazduProcessRequest" name="payload"/>
+    </message>
+    <message name="ExportujJazduProcessResponseMessage">
+        <part element="tns:ExportujJazduProcessResponse" name="payload"/>
+    </message>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PORT TYPE DEFINITION - A port type groups a set of operations into
+     a logical service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+
+    <!-- portType implemented by the ExportujJazduProcess BPEL process -->
+    <portType name="ExportujJazduProcess">
+        <operation name="process">
+            <input message="tns:ExportujJazduProcessRequestMessage"/>
+            <output message="tns:ExportujJazduProcessResponseMessage"/>
+        </operation>
+    </portType>   
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     PARTNER LINK TYPE DEFINITION
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->    
+    <plnk:partnerLinkType name="ExportujJazduProcess">
+        <plnk:role name="ExportujJazduProcessProvider" portType="tns:ExportujJazduProcess"/>
+    </plnk:partnerLinkType>
+    
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     BINDING DEFINITION - Defines the message format and protocol details
+     for a web service.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <binding name="ExportujJazduProcessBinding" type="tns:ExportujJazduProcess">
+    	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="process">
+    		<soap:operation soapAction="http://exportJazdy/process"/>
+    		<input>
+    			<soap:body use="literal"/>
+    		</input>
+    		<output>
+    			<soap:body use="literal"/>
+    		</output>
+    	</operation>
+    </binding>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     SERVICE DEFINITION - A service groups a set of ports into
+     a service unit.
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <service name="ExportujJazduProcessService">
+    	<port binding="tns:ExportujJazduProcessBinding" name="ExportujJazduProcessPort">
+    		<soap:address location="http://localhost:8080/ExportujJazduProcess"/>
+    	</port>
+    </service>
+</definitions>
